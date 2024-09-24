@@ -1,0 +1,3 @@
+misp_url = "<MISP URL>"             # The URL to our MISP server
+misp_key = "<MISP Authkey>"         # The MISP authkey
+misp_verifycert = False             # Indicate if PyMISP should attempt to verify the certificate or ignore errors
