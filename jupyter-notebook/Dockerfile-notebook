@@ -1,0 +1,21 @@
+# base Jupyter Notebook image
+FROM jupyter/base-notebook:latest
+
+# install git
+USER root
+
+RUN apt update && apt install -y git
+
+USER jovyan
+
+# set working directory
+WORKDIR /home/jovyan/work
+
+# clone the misp-playbooks repo
+RUN git clone https://github.com/goodlandsecurity/misp-training.git
+
+# install dependencies
+RUN python3 -m pip install pymisp
+
+# edit jupyter_server_config.py to set password
+RUN sed -i "s|# c.ServerApp.password = ''|c.ServerApp.password = 'argon2:\$argon2id\$v=19\$m=10240,t=10,p=8\$sFgNDFt9YRtnEQnblZKwkw\$G3ZKqXuo1nU8Uai51ODgBkIz8OtOUoPjpPz6BiJT238'|" /home/jovyan/.jupyter/jupyter_server_config.py
